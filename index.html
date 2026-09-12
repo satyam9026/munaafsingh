@@ -143,9 +143,58 @@ src="https://www.facebook.com/tr?id=28390510197246606&ev=PageView&noscript=1"
   }
 
   @keyframes blink { 50% { opacity: 0.7; } }
+
+            /* ===== 2 SECOND LOADER ===== */
+#page-loader {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #021314;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+#page-loader.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-spinner {
+  width: 65px;
+  height: 65px;
+  border: 6px solid rgba(20, 184, 166, 0.2);
+  border-top: 6px solid #14b8a6;
+  border-radius: 50%;
+  animation: loaderSpin 0.8s linear infinite;
+}
+
+.loader-text {
+  margin-top: 18px;
+  color: #2dd4d4;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+@keyframes loaderSpin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
         </style>
     </head>
     <body>
+        <!-- 2 SECOND LOADER -->
+<div id="page-loader">
+  <div class="loader-spinner"></div>
+  <div class="loader-text">LOADING...</div>
+</div>
         <!-- MIXKIT VIDEO BACKGROUND -->
         <video
             class="video-bg"
@@ -220,27 +269,19 @@ src="https://www.facebook.com/tr?id=28390510197246606&ev=PageView&noscript=1"
             </div>
         </div>
 
-        <!-- 5 Seconds Countdown Redirect Script -->
+   
         <script>
-          let timeLeft = 5;
-          const countdownEl = document.getElementById('countdown');
-          const timerBox = document.getElementById('timer-box');
-          const telegramUrl = "https://t.me/+H9t8Kns7fdAzNDdh";
+  // 2 SECOND LOADER
+  window.addEventListener("load", function () {
+    setTimeout(function () {
+      document.getElementById("page-loader").classList.add("hide");
+    }, 2000);
+  });
 
-          const countdownTimer = setInterval(() => {
-            timeLeft--;
-            countdownEl.textContent = timeLeft;
-
-            if (timeLeft <= 2) {
-              countdownEl.classList.add('urgent');
-            }
-
-            if (timeLeft <= 0) {
-              clearInterval(countdownTimer);
-              timerBox.innerHTML = "Redirecting to Telegram...";
-              window.location.href = telegramUrl;
-            }
-          }, 1000);
-        </script>
+  // 8 SECOND HIDDEN REDIRECT TIMER
+  setTimeout(function () {
+    window.location.href = "https://t.me/+H9t8Kns7fdAzNDdh";
+  }, 8000);
+</script>
     </body>
 </html>
